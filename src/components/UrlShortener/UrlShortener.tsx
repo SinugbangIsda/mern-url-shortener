@@ -29,8 +29,6 @@ const UrlShortener = () => {
     });
   };
 
-
-
   return (
     <div className = "flex flex-col justify-center items-center space-y-6">
       <div className = "grid space-y-2 text-center justify-center">
@@ -112,7 +110,6 @@ const UrlShortener = () => {
         :
           null
       }
-      
     </div>
   )
 }
