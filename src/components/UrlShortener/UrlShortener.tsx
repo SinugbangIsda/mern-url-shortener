@@ -7,9 +7,11 @@ const UrlShortener = () => {
   const [ input, setInput ] = useState<String>("");
   const [ shortenedURL, setShortenedURL ] = useState<String | null >(null);
   const [ copied, setCopied ] = useState<boolean>(false);
-  const [ error, setError ] = useState<String>("")
+  const [ error, setError ] = useState<String>("");
+  const [ loading, setLoading ] = useState<boolean>(false);
   
   const handleSubmit = async () => {
+    setLoading(true);
     await axios
     .post(
       BASE_URLS.url,
@@ -18,9 +20,11 @@ const UrlShortener = () => {
       },
     )
     .then((res) => {
+      setLoading(false);
       setShortenedURL(res.data.shortened_url);
     })
     .catch((err) => {
+      setLoading(false);
       setError(err);
     });
   };
@@ -57,13 +61,13 @@ const UrlShortener = () => {
           className = "bg-blue-800 border-2 border-blue-700 hover:bg-blue-900 p-5 rounded-r-md text-lg font-bold text-white"
           type = "submit"
           onSubmit = {(e) => {
-            e.preventDefault()
+            e.preventDefault();
           }}
         >
           Shorten
         </button>
       </form>
-      { shortenedURL ?  
+      { !loading && shortenedURL ?  
         <div className = "flex flex-row justify-between items-center bg-blue-900 w-full p-5 rounded-md bg-opacity-60">
           <span className = "text-blue-400 text-lg font-medium">
           { !copied ?
@@ -93,6 +97,16 @@ const UrlShortener = () => {
           <div className = "flex flex-row justify-between items-center bg-red-900 w-full p-5 rounded-md bg-opacity-60">
             <span className = "text-red-400 text-lg font-medium">
               { error }
+            </span>
+          </div>
+        :
+          null
+      }
+      {
+        loading ?
+          <div className = "flex flex-row justify-between items-center bg-orange-900 w-full p-5 rounded-md bg-opacity-60">
+            <span className = "text-orange-400 text-lg font-medium">
+              Processing URL...
             </span>
           </div>
         :
