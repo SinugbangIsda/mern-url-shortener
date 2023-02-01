@@ -9,7 +9,7 @@ const Footer = () => {
         Created By <></>
         <a 
           className = "hover:cursor-pointer hover:text-blue-600 transition duration-150 ease-out hover:ease-in font-bold"
-          href = "https://mpoperario.vercel.app/"
+          href = "https://github.com/SinugbangIsda/"
         >
           Marcu Operario
         </a>
